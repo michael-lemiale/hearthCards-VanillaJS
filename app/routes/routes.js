@@ -1,6 +1,6 @@
 // require the original.json object and assign to cards
 // create ids list to help index the cards
-const cards = require('C:/Hearthstone/cards.json');
+const cards = require('../../cards.json');
 const imgURL = 'http://media.services.zam.com/v1/media/byName/hs/cards/enus/'
 const routeFunctions = require('./routeFunctions.js')
 
@@ -11,7 +11,8 @@ const getCardArr = routeFunctions["sendCardArr"];
 const getCardStatArr = routeFunctions["sendCardsByStats"];
 
 // create indexes for card attributes
-const cardIdIndexes = [], 
+const cardIdIndexes = [],
+	  cardNameIndexes = [], 
 	  cardClassIndexes = [],
 	  cardTypeIndexes = [],
 	  cardRarityIndexes = [],
@@ -43,6 +44,9 @@ for (let obj in data) {
 // index the cards by their "id"
 getCardsIndexed(cardIdIndexes, "id", data);
 
+// index the cards by their "name"
+getCardsIndexed(cardNameIndexes, "name", data);
+
 // index the cards by their "cardClass"
 getCardsIndexed(cardClassIndexes, "cardClass", data);
 		
@@ -60,6 +64,7 @@ getCardsIndexed(cardHealth, "health", data);
 
 // index the cards by their "attack"
 getCardsIndexed(cardAttack, "attack", data);
+
 
 // create routes
 module.exports = (app, db) => {
@@ -80,6 +85,16 @@ module.exports = (app, db) => {
 
 		res.set('Content-Type', 'application/json')
 		res.send(JSON.stringify(data[cardIdIndex], null, 4));
+	});
+
+	// get card information based on name
+	app.get('/cards/names/:name', (req, res) => {
+		const name = req.params.name;
+		// use name indexes to pull correct card from data
+		const cardNameIndex = cardNameIndexes.indexOf(name);
+
+		res.set('Content-Type', 'application/json')
+		res.send(JSON.stringify(data[cardNameIndex], null, 4));
 	});
 
 	// get card information based on card class
