@@ -94,7 +94,7 @@ html {
 #cards {
 	padding: 5px;
 	display: inline;
-	width: 80%;
+	width: 85%;
 	margin-top: 50px;
 	margin-left: 180px;
 
@@ -114,7 +114,7 @@ html {
 }
 
 .card {
-  width: 350px;
+  width: 300px;
   background: black;
   padding: 5px;
   border: 1px solid black;
@@ -135,7 +135,7 @@ html {
  }
 
 .cardImg {
-  width: 270px;
+  width: 350px;
   padding: 2px;
   
 

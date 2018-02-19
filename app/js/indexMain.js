@@ -1,26 +1,40 @@
+// target menu icon and set to variable
 let menuIcon = document.getElementById("menuIconId");
+// target left column menu and set to variable
 let leftColumn = document.getElementById("leftColumnId");
+// set default visibility value of left column menu to true
 let display = true;
 let currLeftColClass;
 
+// when user clicks on menu icon, do function
 document.getElementById("menuIconId").onclick = () => {
+  // make showLeftColumn default
   leftColumn.classList.add("showLeftColumn");
   
+  // if menu being shown and menu icon gets clicked on
+  // hide the div with new class
   if (display === true) {
     leftColumn.classList.replace("showLeftColumn", "hideLeftColumn");
     display = false;
+    // set current class tracker to "hidden"
     currLeftColClass = hideLeftColumn;
   }
+
+  // if menu is not being shown and menu icon gets clicken on
   else if (display === false) {
     leftColumn.classList.replace("hideLeftColumn", "showLeftColumn");
     display = true;
+    // set current class tracker to "shown"
     currLeftColClass = showLeftColumn;
   };
 };
 
+
+// create endpoint to get json info
 let endpointImgs = "http://uapc0eza6g:3000/cards/imgs/class/MAGE";
+// target "cards" tables
 let cardArea = document.getElementById("cards");
-// Get some data
+// Get some data from the endpoint
 let fetchPromiseImgs = fetch(endpointImgs);
 
 // Make it json
@@ -30,19 +44,21 @@ let jsonPromiseImgs  = fetchPromiseImgs.then((response) => {
            
 // Once it's json
 jsonPromiseImgs.then((json) => {
-  // Iterate over some cards
+  // Iterate over the img urls
   for(let index in Object.values(json)) {
     url = Object.values(json)[index];
-    // Make a div for it
+    // Make an img element for it
     let newElement = document.createElement("img");
       
     // set class
     newElement.classList = "cardImg";
+    // set element link
     newElement.src = url;
 
-   // Add the element to the list
+    // check validity of img link
     newElement.onload = () => {
-    cardArea.appendChild(newElement);
+      // Add the element to the table
+      cardArea.appendChild(newElement);
     };
   };
 });
