@@ -11,7 +11,7 @@ html {
   margin: 0;
 }
 
-.banner {
+header {
 	position: fixed;
 	width: 100vw;
 	top: 0;
@@ -30,7 +30,7 @@ html {
 	background-repeat: no-repeat;
 }
 
-.banner h1 {
+header h1 {
 	color: var(--main-text-color);
 	font-family: var(--main-text-font);
 	font-size: 35px;
@@ -39,7 +39,7 @@ html {
 	float: left;
 }
 
-.banner a {
+header a {
 	color: inherit;
 	text-decoration: inherit;
 }
@@ -91,16 +91,25 @@ html {
 
 }
 
-#cards {
-	padding: 5px;
-	display: inline;
-	width: 85%;
-	margin-top: 50px;
-	margin-left: 180px;
+.leftColumnClass a {
+	cursor: pointer;
+}
 
+#cards {
 	position: absolute;
 	overflow: hidden;
-	font-family: var(--main-text-font);
+	display: inline;
+	width: 85%;
+	left: 10%;
+	top: 10%;
+
+	margin-left: 50px;
+}
+
+#cardsTable {
+	display: inline;
+	position: relative;
+	overflow: hidden;
 }
 
 .hideLeftColumn {
@@ -111,6 +120,11 @@ html {
 .showLeftColumn {
 	transform: translate(0px, 0px);
 	transition: transform .75s;
+}
+
+.shiftCards {
+	transform: translate(-300px, 0px);
+	transition: transform 1.5s;
 }
 
 .card {

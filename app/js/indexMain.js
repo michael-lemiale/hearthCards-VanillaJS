@@ -1,8 +1,10 @@
 // target menu icon and set to variable
-let menuIcon = document.getElementById("menuIconId");
+const menuIcon = document.getElementById("menuIconId");
 // target left column menu and set to variable
-let leftColumn = document.getElementById("leftColumnId");
+const leftColumn = document.getElementById("leftColumnId");
 // set default visibility value of left column menu to true
+// target "cards" tables
+const cardArea = document.getElementById("cards");
 let display = true;
 let currLeftColClass;
 
@@ -17,7 +19,7 @@ document.getElementById("menuIconId").onclick = () => {
     leftColumn.classList.replace("showLeftColumn", "hideLeftColumn");
     display = false;
     // set current class tracker to "hidden"
-    currLeftColClass = hideLeftColumn;
+    currLeftColClass = "hideLeftColumn";
   }
 
   // if menu is not being shown and menu icon gets clicken on
@@ -25,15 +27,21 @@ document.getElementById("menuIconId").onclick = () => {
     leftColumn.classList.replace("hideLeftColumn", "showLeftColumn");
     display = true;
     // set current class tracker to "shown"
-    currLeftColClass = showLeftColumn;
+    currLeftColClass = "showLeftColumn";
   };
 };
 
+/**********FIX THIS***************/
+// shift cards based on display of left column
+// if (display === false) {
+//   cardArea.classList.add("shiftCards")
+// }
+// else if (display === true) {
+//   cardArea.classList.remove("shiftCards")
+// };
 
 // create endpoint to get json info
 let endpointImgs = "http://uapc0eza6g:3000/cards/imgs/class/MAGE";
-// target "cards" tables
-let cardArea = document.getElementById("cards");
 // Get some data from the endpoint
 let fetchPromiseImgs = fetch(endpointImgs);
 
