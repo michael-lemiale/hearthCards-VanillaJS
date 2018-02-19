@@ -4,13 +4,16 @@
   "description": "API for Hearthstone cards",
   "main": "index.js",
   "scripts": {
-    "test": "start",
+    "start": "npm run server && npm run web",
+    "server": "node ./server.js",
+    "web": "start ./app/html/homeIndex.html",
     "dev": "nodemon server.js"
   },
   "author": "michael gross",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "mongodb": "^3.0.2"
   },
