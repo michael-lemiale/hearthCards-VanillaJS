@@ -40,7 +40,7 @@ header h1 {
 	text-align: left;
 
 	position: relative;
-	display: inline-block;
+	display: inline;
 }
 
 header a {
@@ -171,11 +171,11 @@ header a {
  }
 
 @media all and (max-width: 480px) {
-  .showLeftColumn { display: none; }
+  header h1 { font-size: 30px; padding-top: 5px;}
   #cards { transform: translate(-150px, 0px); transition: transform .5s; }
 }
 
 @media all and (min-width: 481px) {
-  /*.showLeftColumn { display: none; }*/
   #cards { transform: translate(0px, 0px); transition: transform .5s; }
+
 }

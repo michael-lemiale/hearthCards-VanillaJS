@@ -30,10 +30,11 @@ document.getElementById("menuIconId").onclick = () => {
 };
 
 // make showLeftColumn default depending on window pixel width
-document.onresize = () => {
+document.body.onresize = () => {
   leftColumn.classList.add("showLeftColumn");
   if (document.body.clientWidth <= 480) {
     leftColumn.classList.replace("showLeftColumn" ,"hideLeftColumn");
+      
   }
   else {
     leftColumn.classList.replace("hideLeftColumn", "showLeftColumn");
