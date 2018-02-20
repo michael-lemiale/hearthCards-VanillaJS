@@ -9,13 +9,11 @@ let display = true;
 let currLeftColClass;
 
 // when user clicks on menu icon, do function
-document.getElementById("menuIconId").onclick = () => {
-  // make showLeftColumn default
-  leftColumn.classList.add("showLeftColumn");
-  
+document.getElementById("menuIconId").onclick = () => { 
   // if menu being shown and menu icon gets clicked on
   // hide the div with new class
   if (display === true) {
+    leftColumn.classList.add("showLeftColumn");
     leftColumn.classList.replace("showLeftColumn", "hideLeftColumn");
     display = false;
     // set current class tracker to "hidden"
@@ -31,7 +29,18 @@ document.getElementById("menuIconId").onclick = () => {
   };
 };
 
-/**********FIX THIS***************/
+// make showLeftColumn default depending on window pixel width
+document.onresize = () => {
+  leftColumn.classList.add("showLeftColumn");
+  if (document.body.clientWidth <= 480) {
+    leftColumn.classList.replace("showLeftColumn" ,"hideLeftColumn");
+  }
+  else {
+    leftColumn.classList.replace("hideLeftColumn", "showLeftColumn");
+  };
+};
+
+/**********FIX THIS maybe?***************/
 // shift cards based on display of left column
 // if (display === false) {
 //   cardArea.classList.add("shiftCards")
@@ -70,6 +79,9 @@ jsonPromiseImgs.then((json) => {
     };
   };
 });
+
+
+
 
 
 
