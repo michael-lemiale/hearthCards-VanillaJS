@@ -1,7 +1,7 @@
 const sendImgArr = (paramId, index, mainCardData) => {
 	// set image url & object to return for get route
 	const imgURL = 'http://media.services.zam.com/v1/media/byName/hs/cards/enus/'
-	let imgObjGet = {};
+	let imgObjGet = [];
 
 	// if parameter is passed in get route, get all card images for cards related to the
 	// parameter id in the URI
@@ -21,9 +21,10 @@ const sendImgArr = (paramId, index, mainCardData) => {
 	else {
 		for (let a in index) {
 			// add card ID to imgURL and add to imgArr
+
 			let cardID = index[a];
 			let imgURL_Temp = imgURL + cardID + '.png';
-			imgObjGet[cardID] = imgURL_Temp;
+			imgObjGet.push(imgURL_Temp);
 		};
 	};
 	return imgObjGet;

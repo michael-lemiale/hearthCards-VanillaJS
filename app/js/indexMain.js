@@ -41,17 +41,8 @@ document.body.onresize = () => {
   };
 };
 
-/**********FIX THIS maybe?***************/
-// shift cards based on display of left column
-// if (display === false) {
-//   cardArea.classList.add("shiftCards")
-// }
-// else if (display === true) {
-//   cardArea.classList.remove("shiftCards")
-// };
-
 // create endpoint to get json info
-let endpointImgs = "http://uapc0eza6g:3000/cards/imgs/class/MAGE";
+let endpointImgs = "http://uapc0eza6g:3000/cards/imgs/all";
 // Get some data from the endpoint
 let fetchPromiseImgs = fetch(endpointImgs);
 
@@ -80,10 +71,6 @@ jsonPromiseImgs.then((json) => {
     };
   };
 });
-
-
-
-
 
 
 // let endpoint2 = "http://uapc0eza6g:3000/cards/class/MAGE";
