@@ -8,10 +8,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 </head>
 <body>
-	<div id="cards">
-		<table id="cardsTable">
-		</table>
-	</div>
+
 	<header>
 		<div id="menuIconId" class="menuIconClass">
 			<div class="menuIconElement"></div>
@@ -25,12 +22,64 @@
 			<a href="homeIndex.html">Hearthstone Cards</a>
 		</h1></span>
 	</header>
-	<div id="leftColumnId" class="leftColumnClass">
-		<br>
-		<ul><a>Cards</a></ul>
-		<ul><a>Classes</a></ul>
-		<ul><a>Types</a></ul>
-		<ul><a>Stats</a></ul>
+    <!--add hide and show for the filter thingy based on z-index + position  -->
+    <!-- additionally add the transform / transition piece to move the divs when filter button is clicked -->
+    <!-- transition stays in original class of div -->
+	<div class = "filterPanel">
+		<div class="classFilter">
+			<div class="classFilterContainer"> 
+				<img src="../images/druid.png">
+				<div class = "text">Druid</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/hunter.png">
+				<div class = "text">Hunter</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/mage.png">
+				<div class = "text">Mage</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/monk.png">
+				<div class = "text">Monk</div>
+			</div>	
+			<div class="classFilterContainer">
+				<img src="../images/paladin.png">
+				<div class = "text">Paladin</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/priest.png">
+				<div class = "text">Priest</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/rogue.png">
+				<div class = "text">Rogue</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/shaman.png">
+				<div class = "text">Shaman</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/warlock.png">
+				<div class = "text">Warlock</div>
+			</div>
+			<div class="classFilterContainer">
+				<img src="../images/warrior.png">
+				<div class = "text">Warrior</div>
+			</div>
+		</div>
+	</div> 
+	
+	<div class = "top">
+		<div id="leftColumnId" class="leftColumnClass">
+			<br>
+			<ul><a>Cards</a></ul>
+			<ul><a>Classes</a></ul>
+			<ul><a>Types</a></ul>
+			<ul><a>Stats</a></ul>
+		</div>
+		<div id="cards">
+		</div>
 	</div>
 </body>
 <script src="../js/indexMain.js"></script>

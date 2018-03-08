@@ -1,3 +1,6 @@
+/** ADD A TIMER THINGY **/
+
+
 // target menu icon and set to variable
 const menuIcon = document.getElementById("menuIconId");
 // target left column menu and set to variable
@@ -20,6 +23,7 @@ document.getElementById("menuIconId").onclick = () => {
     currLeftColClass = "hideLeftColumn";
   }
 
+
   // if menu is not being shown and menu icon gets clicken on
   else if (display === false) {
     leftColumn.classList.replace("hideLeftColumn", "showLeftColumn");
@@ -28,6 +32,14 @@ document.getElementById("menuIconId").onclick = () => {
     currLeftColClass = "showLeftColumn";
   };
 };
+
+document.getElementById("filterIconId").onclick = () => {
+  let mainPanel = document.querySelector(".top");
+  let filterPanel = document.querySelector(".filterPanel");
+
+  mainPanel.classList.toggle("moveCardsDown");
+  filterPanel.classList.toggle("showFilterPanel");
+}  
 
 // make showLeftColumn default depending on window pixel width
 document.body.onresize = () => {

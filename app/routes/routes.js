@@ -4,15 +4,6 @@ const cards = require('../../cards.json');
 const imgURL = 'http://media.services.zam.com/v1/media/byName/hs/cards/enus/'
 const routeFunctions = require('./routeFunctions.js')
 
-/*
-	cardMap = {};
-	for(card in cardList) {
-		card = cardList[card];
-		cardMap[card.name] = card;
-	}
-*/
-// cardMap["apple"] = 
-
 // declare functions to be reused from routeFuncions.js in get & post routes
 const getCardsIndexed = routeFunctions["indexCards"];
 const getImgArr = routeFunctions["sendImgArr"];
@@ -49,6 +40,13 @@ for (let obj in data) {
 	keyText = keyText.replaceAll("\n", "");
 	keyText = keyText.replaceAll("[x]", "");
 
+	data[obj][keyName] = keyText;
+
+};
+
+let cardMap = {};
+for (let card in data) {
+	cardMap[data[card].id] = data[card];
 };
 
 // index the cards by their "id"
@@ -91,10 +89,10 @@ module.exports = (app, db) => {
 	app.get('/cards/:id', (req, res) => {
 		const id = req.params.id;
 		// use id indexes to pull correct card from data
-		const cardIdIndex = cardIdIndexes.indexOf(id);
+		const cardTemp = cardMap[id];
 
 		res.set('Content-Type', 'application/json')
-		res.send(JSON.stringify(data[cardIdIndex], null, 4));
+		res.send(JSON.stringify(cardTemp, null, 4));
 	});
 
 	// get card information based on name
@@ -156,7 +154,7 @@ module.exports = (app, db) => {
 		}
 
 		imgObjSend = imgObjSend.slice((pageNum-1)*pageSize, pageNum*pageSize);
-		
+
 		res.set('Content-Type', 'application/json');
 		res.send(JSON.stringify(imgObjSend), null, 4);
 	});
