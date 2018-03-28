@@ -140,10 +140,12 @@ module.exports = (app, db) => {
 /****************CARD IMAGE ROUTES****************/
 
 	// get all card image urls
-	app.get('/cards/imgs/all', (req, res) => {
+	app.get('/cards/imgs/all/:class', (req, res) => {
+		
 		let imgObjSend = getImgArr(false, cardIdIndexes, data);
 		let pageNum = req.query.pageNum;
 		let pageSize = req.query.pageSize;
+		let cardClass = req.params.class;
 
 		if (!pageSize) {
 			pageSize = 24;

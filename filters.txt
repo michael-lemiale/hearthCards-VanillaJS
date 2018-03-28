@@ -1,0 +1,30 @@
+ALL TEXT - searches the cards for a piece of text
+
+setFilter action 
+
+{allText: what users input, pageNum: 1, pageSize: 48};
+
+for (param in req.query)
+	switch(param)
+		cases for filters
+
+because that is in for loop, it will go through all and continue to filter based on you req.param
+
+g = global, all of string
+i = lower or upper case
+regex = new RegExp(valuesearched for, 'gi')
+
+.filter(cards, (card) => {
+	.match(regex)
+}
+
+
+each filter has a function to filter for
+
+for cards in the cards 
+[0,1,2].indexOf(array.card.manaCost) != -1 {
+	return card to the return list
+}
+
+format the url from inputs in the clicks with redux
+

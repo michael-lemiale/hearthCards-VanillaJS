@@ -1,60 +1,34 @@
 /** ADD A TIMER THINGY **/
-
-
+const classIcons = ["druid", "hunter", "mage", "paladin", "priest", "rogue", "shaman", "warlock", "warrior"];
 // target menu icon and set to variable
 const menuIcon = document.getElementById("menuIconId");
 // target left column menu and set to variable
 const leftColumn = document.getElementById("leftColumnId");
-// set default visibility value of left column menu to true
 // target "cards" tables
 const cardArea = document.getElementById("cards");
-let display = true;
-let currLeftColClass;
+
+classIcons.forEach((elem) => {
+    document.getElementById(elem).addEventListener("click", () => {
+        document.getElementById(elem).classList.toggle("selected");
+    });
+});
+
 
 // when user clicks on menu icon, do function
-document.getElementById("menuIconId").onclick = () => { 
-  // if menu being shown and menu icon gets clicked on
-  // hide the div with new class
-  if (display === true) {
-    leftColumn.classList.add("showLeftColumn");
-    leftColumn.classList.replace("showLeftColumn", "hideLeftColumn");
-    display = false;
-    // set current class tracker to "hidden"
-    currLeftColClass = "hideLeftColumn";
-  }
-
-
-  // if menu is not being shown and menu icon gets clicken on
-  else if (display === false) {
-    leftColumn.classList.replace("hideLeftColumn", "showLeftColumn");
-    display = true;
-    // set current class tracker to "shown"
-    currLeftColClass = "showLeftColumn";
-  };
-};
-
-document.getElementById("filterIconId").onclick = () => {
-  let mainPanel = document.querySelector(".top");
-  let filterPanel = document.querySelector(".filterPanel");
-
-  mainPanel.classList.toggle("moveCardsDown");
-  filterPanel.classList.toggle("showFilterPanel");
-}  
-
-// make showLeftColumn default depending on window pixel width
-document.body.onresize = () => {
-  leftColumn.classList.add("showLeftColumn");
-  if (document.body.clientWidth <= 480) {
-    leftColumn.classList.replace("showLeftColumn" ,"hideLeftColumn");
-      
-  }
-  else {
-    leftColumn.classList.replace("hideLeftColumn", "showLeftColumn");
-  };
+menuIcon.onclick = () => { 
+  // shift cards to expose or hide column
+  cardArea.classList.toggle("shiftCards");
+  // hide or show column
+  leftColumn.classList.toggle("hideColumn");
 };
 
 // create endpoint to get json info
-let endpointImgs = "http://uapc0eza6g:3000/cards/imgs/all";
+let endpointBase = "http://uapc0eza6g:3000/cards/imgs/all/%20/?";
+let pageSizeParam = 48;
+let pageNumParam = 1;
+
+let endpointImgs = endpointBase + "pageNum=" + pageNumParam + "&pageSize=" + pageSizeParam;
+
 // Get some data from the endpoint
 let fetchPromiseImgs = fetch(endpointImgs);
 
@@ -62,7 +36,7 @@ let fetchPromiseImgs = fetch(endpointImgs);
 let jsonPromiseImgs  = fetchPromiseImgs.then((response) => {
   return response.json();
 });
-           
+   
 // Once it's json
 jsonPromiseImgs.then((json) => {
   // Iterate over the img urls
@@ -84,35 +58,49 @@ jsonPromiseImgs.then((json) => {
   };
 });
 
+// options 1 for scrolling and loading new cards --
+var didScroll = false;
+var scrollLimit = 2000;
 
-// let endpoint2 = "http://uapc0eza6g:3000/cards/class/MAGE";
-// let cardArea = document.getElementById("cards");
-// // Get some data
-// let fetchPromise2 = fetch(endpoint2);
+window.onscroll = doThisStuffOnScroll;
 
-// // Make it json
-// let jsonPromise2  = fetchPromise2.then((response) => {
-//   return response.json();
-// });
-              
-// // Once it's json
-// jsonPromise2.then((json) => {
-//   // Iterate over some cards
-//   for(let card in json) {
-    
-//     // Set the card
-//     currCard = json[card];
-    
-//     // Make a div for it
-//     let newElement = document.createElement("div");
-    
-//     // set class
-//     newElement.classList = "card";
+function doThisStuffOnScroll() {
+    didScroll = true;
+}
 
-//     // Set the content
-//     newElement.innerHTML = currCard.name;
+setInterval(function() {
+    if(didScroll && Math.round(window.scrollY) > scrollLimit) {
+        didScroll = false;
+        pageNumParam += 1;
 
-//     // Add the element to the list
-//     cardArea.appendChild(newElement);
-//   };
-// });
+        endpointImgs = endpointBase + "pageNum=" + pageNumParam + "&pageSize=" + pageSizeParam;
+
+        let fetchPromiseImgs = fetch(endpointImgs);
+
+        let jsonPromiseImgs  = fetchPromiseImgs.then((response) => {
+          return response.json();
+        });
+
+        // Once it's json
+        jsonPromiseImgs.then((json) => {
+        // Iterate over the img urls
+          for(let index in Object.values(json)) {
+            url = Object.values(json)[index];
+            // Make an img element for it
+            let newElement = document.createElement("img");
+      
+            // set class
+            newElement.classList = "cardImg";
+            // set element link
+            newElement.src = url;
+
+            // check validity of img link
+            newElement.onload = () => {
+              // Add the element to the table
+              cardArea.appendChild(newElement);
+            };
+          };
+        });
+    scrollLimit += 2800;
+    }
+}, 1000);
