@@ -23,7 +23,7 @@ menuIcon.onclick = () => {
 };
 
 // create endpoint to get json info
-let endpointBase = "http://uapc0eza6g:3000/cards/imgs/all/%20/?";
+let endpointBase = "http://uapc0eza6g:3000/cards?";
 let pageSizeParam = 48;
 let pageNumParam = 1;
 
@@ -41,10 +41,11 @@ let jsonPromiseImgs  = fetchPromiseImgs.then((response) => {
 jsonPromiseImgs.then((json) => {
   // Iterate over the img urls
   for(let index in Object.values(json)) {
-    url = Object.values(json)[index];
+    url = Object.values(json)[index].img;
+
     // Make an img element for it
     let newElement = document.createElement("img");
-      
+    
     // set class
     newElement.classList = "cardImg";
     // set element link
@@ -60,7 +61,6 @@ jsonPromiseImgs.then((json) => {
 
 // options 1 for scrolling and loading new cards --
 var didScroll = false;
-var scrollLimit = 2000;
 
 window.onscroll = doThisStuffOnScroll;
 
@@ -69,7 +69,10 @@ function doThisStuffOnScroll() {
 }
 
 setInterval(function() {
-    if(didScroll && Math.round(window.scrollY) > scrollLimit) {
+    let scrollHeight = Math.round(window.scrollY);
+    let windowHeight = cardArea.clientHeight;
+
+    if(didScroll && ((scrollHeight / windowHeight) > .75)) {
         didScroll = false;
         pageNumParam += 1;
 
@@ -101,6 +104,6 @@ setInterval(function() {
             };
           };
         });
-    scrollLimit += 2800;
+    let a = 0;
     }
 }, 1000);

@@ -210,7 +210,11 @@ header a {
 
 .cardImg:hover {
  	transform: scale(1.22);
- }
+}
+
+/*.cardImg:hover img {
+	box-shadow: 0 0 .4em .5em white;
+}*/
 
 
 @media all and (max-width: 480px) {

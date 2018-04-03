@@ -23,6 +23,10 @@ const cardIdIndexes = [],
 
 let data = cards["data"];
 
+for (let a in data) {
+	data[a].img = imgURL + data[a].id  + '.png';
+}
+
 // remove the <b>, </b>, /n & [x] characters from the original .json file
 for (let obj in data) {
 	let keyName = "text"
@@ -43,6 +47,19 @@ for (let obj in data) {
 	data[obj][keyName] = keyText;
 
 };
+
+function filterByCardClass (className, cardList = data) {
+	let returnCardList = [];
+	for (let card in cardList) {
+		if (typeof cardList[card].cardClass != 'undefined') {
+			if (cardList[card].cardClass = className) {
+				returnCardList.push(cardList[card]);
+			}
+		}
+	}
+	console.log(returnCardList);
+	return returnCardList;
+}
 
 let cardMap = {};
 for (let card in data) {
@@ -82,7 +99,35 @@ module.exports = (app, db) => {
     // get all card information
 	app.get('/cards', (req, res) => {
 		res.set('Content-Type', 'application/json');
-		res.send(JSON.stringify(data));
+		// res.send(JSON.stringify(data))
+		
+		let cardList = data;
+		let pageNum = req.query.pageNum;
+		let pageSize = req.query.pageSize;
+		let cardClass = req.params.class;
+
+		if (!pageSize) {
+			pageSize = 24;
+		}
+
+		if (!pageNum) {
+			pageNum = 1;
+		}
+
+		// loop through all parameters in the query
+		for (param in req.query) {
+			switch(param.toLowerCase()) {
+				case 'class':
+					cardList = filterByCardClass(req.query[param], cardList)
+					break;
+				default:
+					cardList = cardList;
+			}
+		}
+
+		cardList = cardList.slice((pageNum-1)*pageSize, pageNum*pageSize);
+
+		res.send(JSON.stringify(cardList));
 	});
 
 	// get card information based on id
